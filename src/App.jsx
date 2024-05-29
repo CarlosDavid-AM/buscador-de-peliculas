@@ -1,9 +1,9 @@
-import withResult from './json/with-results.json'
-import './App.css'
+import { useMovieMap } from './hooks/useMovieMap'
 import ShowMovie from './components/ShowMovie'
+import './App.css'
 
 const App = () => {
-  const pelicula = withResult?.Search
+  const {pelicula: mappepMovie} = useMovieMap()
 
   return (
     <div className="page">
@@ -17,7 +17,7 @@ const App = () => {
       </header>
 
       <main>
-        <ShowMovie pelicula={pelicula} />
+        <ShowMovie pelicula={mappepMovie} />
       </main>
     </div>
   )

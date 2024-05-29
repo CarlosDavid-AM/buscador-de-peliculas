@@ -4,10 +4,10 @@ const RenderMovie = ({movie}) => {
   return(
     <ul>
       {movie.map((peli) => (
-        <li key={peli.imdbID}>
-          <h2> {peli.Title} </h2>
-          <p> {peli.Year} </p>
-          <img src={peli.Poster} alt={peli.Title} />
+        <li key={peli.id}>
+          <h2> {peli.titulo} </h2>
+          <p> {peli.año} </p>
+          <img src={peli.poster} alt={peli.titulo} />
         </li>
       ))}
     </ul>
