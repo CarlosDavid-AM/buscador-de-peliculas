@@ -15,4 +15,6 @@ form {
   justify-content: center;
 }
 
-/* https://www.omdbapi.com/?apikey=8116e3e&s=Avengers */
+.error {
+  color: red;
+}
