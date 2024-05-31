@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import withResult from '../json/with-results.json'
+import notResult from '../json/not-results.json'
 
-export function useMovieMap () {
-  const pelicula = withResult.Search
+export function useMovieMap ({ search }) {
+  const [responseMovies, setResponseMovies] = useState([])
+  const pelicula = responseMovies.Search
 
   const mappepMovie = pelicula?.map((movie) => ({
     id: movie.imdbID,
@@ -10,5 +13,13 @@ export function useMovieMap () {
     poster: movie.Poster
   }))
 
-  return {pelicula: mappepMovie}
+  const getMovie = () => {
+    if (search) {
+      setResponseMovies(withResult)
+    } else {
+      setResponseMovies(notResult)
+    }
+  }
+
+  return {pelicula: mappepMovie, getMovie}
 }

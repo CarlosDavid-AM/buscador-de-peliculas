@@ -4,12 +4,12 @@ import './App.css'
 import { useSearch } from './hooks/useSearch'
 
 const App = () => {
-  const {pelicula: mappepMovie} = useMovieMap()
-
   const {error, search, setSeacrh} = useSearch()
+  const { pelicula, getMovie } = useMovieMap({ search })
   
   const handleSubmit = (event) => {
     event.preventDefault()
+    getMovie()
   }
 
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ const App = () => {
       </header>
 
       <main>
-        <ShowMovie pelicula={mappepMovie} />
+        <ShowMovie pelicula={pelicula} />
       </main>
     </div>
   )
