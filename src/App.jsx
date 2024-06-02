@@ -5,7 +5,7 @@ import { useSearch } from './hooks/useSearch'
 
 const App = () => {
   const {error, search, setSeacrh} = useSearch()
-  const { pelicula, getMovie } = useMovieMap({ search })
+  const { pelicula, getMovie, loading } = useMovieMap({ search })
   
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -31,7 +31,9 @@ const App = () => {
       </header>
 
       <main>
-        <ShowMovie pelicula={pelicula} />
+        {
+          loading ? <span>Cargando...</span> : <ShowMovie pelicula={pelicula} />
+        }
       </main>
     </div>
   )
