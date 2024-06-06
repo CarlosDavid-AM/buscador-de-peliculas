@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import notResult from '../json/not-results.json'
 
-export function useMovieMap ({ search }) {
+export function useMovieMap ({ search, sort }) {
   const [responseMovies, setResponseMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -15,7 +15,7 @@ export function useMovieMap ({ search }) {
     poster: movie.Poster
   }))
 
-  const getMovie = async () => {
+  const getMovie = useCallback(async ({ search }) => {
     if (search === previuSearch.current) return
     try {
       setLoading(true)
@@ -33,7 +33,19 @@ export function useMovieMap ({ search }) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
-  return {pelicula: mappepMovie, getMovie, loading, error, previuSearch}
+  // const sortMovie = sort 
+  // ? [...mappepMovie].sort((a, b) => a.titulo.localeCompare(b.titulo)) 
+  // : mappepMovie
+  //console.log("render", sort)
+
+  const sortMovie = useMemo(() => {
+    return sort ? 
+    [...mappepMovie].sort((a, b) => a.titulo.localeCompare(b.titulo)) 
+    : mappepMovie
+  }, [sort, pelicula])
+
+
+  return {pelicula: sortMovie, search, getMovie, loading, error, previuSearch}
 }
