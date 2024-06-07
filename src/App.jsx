@@ -2,13 +2,22 @@ import { useMovieMap } from './hooks/useMovieMap'
 import ShowMovie from './components/ShowMovie'
 import './App.css'
 import { useSearch } from './hooks/useSearch'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import debounce from 'just-debounce-it'
 
 const App = () => {
   const [sort, setSort] = useState(false)
   const {error, search, setSeacrh} = useSearch()
   const { pelicula, getMovie, loading } = useMovieMap({ search, sort })
   
+  const debonceGetMovies = useCallback(
+    debounce(search => {
+      console.log("search")
+      getMovie({search})
+    }, 300)
+    ,[]
+  )
+
   const handleSubmit = (event) => {
     event.preventDefault()
     getMovie({search})
@@ -18,6 +27,7 @@ const App = () => {
     const newConsulta = e.target.value
     if (newConsulta.startsWith(' ')) return
     setSeacrh(e.target.value)
+    debonceGetMovies(newConsulta)
   }
 
   const handleCheck = () => {
